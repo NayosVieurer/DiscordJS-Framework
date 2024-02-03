@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const config = require('./config.json');
 const utils = require("./Utils.js");
+const db = require("./database.js");
 
 let remap = {};
 
@@ -75,6 +76,8 @@ exports.handleCommand = handleCommand;
 client.on("ready", async () => {
 
   refreshRemap();
+
+  db.dbConnection();
 
   // This event will run if the bot starts, and logs in, successfully.
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds. \n `);
