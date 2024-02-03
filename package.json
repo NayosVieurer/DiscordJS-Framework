@@ -1,0 +1,26 @@
+{
+  "name": "jvc-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.star-citizen.js",
+  "dependencies": {
+    "config": "^3.3.6",
+    "discord.js": "^12.5.3",
+    "mongodb": "^6.2.0",
+    "node-cron": "^3.0.0",
+    "pm2": "^5.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NayosVieurer/JVC-Bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NayosVieurer/JVC-Bot/issues"
+  },
+  "homepage": "https://github.com/NayosVieurer/JVC-Bot#readme"
+}
