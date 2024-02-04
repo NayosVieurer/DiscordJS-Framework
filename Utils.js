@@ -12,10 +12,10 @@ exports.deleteMessage = (message) =>
 exports.errorMessage = (message) =>
 {
   const embed = new Discord.MessageEmbed()
-    .setTitle("**" + message.author.username + " il y a une erreur dans la commande <:__:434260715449352203> **")
+    .setTitle("**" + message.author.username + " your command syntax is wrong <:__:434260715449352203> **")
     .setTimestamp()
     .setImage("https://imgur.com/LJTb5CQ.png")
-    .setFooter(text="Attention à bien copier coller")
+    .setFooter(text="carefull with copy and past")
     .setColor("#b90000");
   let erreur = message.channel.send({embed})
 
@@ -28,7 +28,9 @@ exports.errorMessage = (message) =>
 
 exports.checkPermissions = (message) =>
 {
-  console.log(config.ModsRoles.length);
+  if (config.ModsRoles.length == 0)
+    return true;
+
   for (var i = 0; i < config.ModsRoles.length; i++)
   {
     if(message.member.roles.cache.has(config.ModsRoles[i]))
@@ -38,7 +40,7 @@ exports.checkPermissions = (message) =>
   }
 
 
-  message.channel.send("Minute papillon, t'as pas le droit a cette commande !")
+  message.channel.send("Hold on, you're not allowed to use this command")
   .then(message =>
     {
       setTimeout(function()
