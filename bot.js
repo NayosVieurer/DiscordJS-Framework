@@ -1,6 +1,13 @@
 const fs = require('fs');
 const {Client, Events, GatewayIntentBits} = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds]});
+const client = new Client({
+  intents:
+  [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildVoiceStates
+  ]});
 const config = require('./config.json');
 const utils = require("./Utils.js");
 const db = require("./database.js");
@@ -85,7 +92,41 @@ client.once(Events.ClientReady, async () => {
 
 });
 
-client.on("message", message => {
+client.on(Events.VoiceStateUpdate, async (oldSate, newState) =>
+{
+  console.log("toto");
+  let oldChannel = oldSate.channel;
+  let newChannel = newState.channel;
+
+  let oldChannelFile;
+  let newChannelFile;
+
+  if (oldChannel != null && remap.channels[oldChannel.id] != "undefined")
+    oldChannelFile = require("./Channels/" + remap.channels[oldChannel.id]);
+
+  if (newChannel != null && remap.channels[newChannel.id] != "undefined")
+    newChannelFile = require("./Channels/" + remap.channels[newChannel.id]);
+
+  if(oldChannel == newChannel)
+  {
+
+    newChannelFile.OnStateChange();
+  }
+
+  else
+  {
+    if(typeof oldChannelFile !== "undefined")
+      oldChannelFile.OnLeave(client, oldSate.member, oldChannel);
+
+    if(typeof newChannelFile !== "undefined")
+      newChannelFile.OnEntry(client, newState.member, newChannel);
+  }
+
+});
+
+
+client.on(Events.MessageCreate, async (message) => {
+
 
 	if (message.author.bot || config.blacklist.includes(message.author.id))
     return;
@@ -97,11 +138,14 @@ client.on("message", message => {
     return;
   }
 
+  console.log(message.content);
 
+  console.log(message.content.indexOf(config.prefix));
 
   if(message.content.indexOf(config.prefix) != 0)
     return;
 
+  console.log("toto");
   handleCommand(message);
 
   utils.deleteMessage(message);

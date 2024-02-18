@@ -1,5 +1,5 @@
 //Add the channel id here
-exports.channelId = "1203496044340580502";
+exports.channelId = "";
 
 exports.run = (client, message, args) =>
 {
