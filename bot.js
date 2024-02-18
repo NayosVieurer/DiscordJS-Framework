@@ -78,6 +78,7 @@ function handleCommand(message)
 
 exports.refreshRemap = refreshRemap;
 exports.handleCommand = handleCommand;
+exports.remap = remap;
 
 client.once(Events.ClientReady, async () => {
 
@@ -94,7 +95,6 @@ client.once(Events.ClientReady, async () => {
 
 client.on(Events.VoiceStateUpdate, async (oldSate, newState) =>
 {
-  console.log("toto");
   let oldChannel = oldSate.channel;
   let newChannel = newState.channel;
 
@@ -109,7 +109,6 @@ client.on(Events.VoiceStateUpdate, async (oldSate, newState) =>
 
   if(oldChannel == newChannel)
   {
-
     newChannelFile.OnStateChange();
   }
 
