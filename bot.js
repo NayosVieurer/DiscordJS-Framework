@@ -1,6 +1,6 @@
 const fs = require('fs');
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const {Client, Events, GatewayIntentBits} = require('discord.js');
+const client = new Client({ intents: [GatewayIntentBits.Guilds]});
 const config = require('./config.json');
 const utils = require("./Utils.js");
 const db = require("./database.js");
@@ -72,7 +72,7 @@ function handleCommand(message)
 exports.refreshRemap = refreshRemap;
 exports.handleCommand = handleCommand;
 
-client.on("ready", async () => {
+client.once(Events.ClientReady, async () => {
 
   refreshRemap();
 
