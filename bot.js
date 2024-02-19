@@ -140,7 +140,6 @@ client.on(Events.MessageCreate, async (message) => {
   if(message.content.indexOf(config.prefix) != 0)
     return;
 
-  console.log("toto");
   handleCommand(message);
 
   utils.deleteMessage(message);
