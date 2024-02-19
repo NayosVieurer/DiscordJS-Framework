@@ -101,10 +101,10 @@ client.on(Events.VoiceStateUpdate, async (oldSate, newState) =>
   let oldChannelFile;
   let newChannelFile;
 
-  if (oldChannel != null && remap.channels[oldChannel.id] != "undefined")
+  if (oldChannel != null && typeof remap.channels[oldChannel.id] != "undefined")
     oldChannelFile = require("./Channels/" + remap.channels[oldChannel.id]);
 
-  if (newChannel != null && remap.channels[newChannel.id] != "undefined")
+  if (newChannel != null && typeof remap.channels[newChannel.id] != "undefined")
     newChannelFile = require("./Channels/" + remap.channels[newChannel.id]);
 
   if(oldChannel == newChannel)
@@ -136,10 +136,6 @@ client.on(Events.MessageCreate, async (message) => {
     channelFile.run(client, message)
     return;
   }
-
-  console.log(message.content);
-
-  console.log(message.content.indexOf(config.prefix));
 
   if(message.content.indexOf(config.prefix) != 0)
     return;
